@@ -7,12 +7,22 @@ import (
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	flags "github.com/jessevdk/go-flags"
 )
 
+type options struct {
+	Profile string `short:"p" long:"profile" description:"aws profile" default:"default"`
+}
+
 func main() {
+	var opts options
+	if _, err := flags.Parse(&opts); err != nil {
+		return
+	}
+
 	sess := session.Must(session.NewSessionWithOptions(
 		session.Options{
-			Profile:           "tteshima",
+			Profile:           opts.Profile,
 			SharedConfigState: session.SharedConfigEnable,
 		},
 	))

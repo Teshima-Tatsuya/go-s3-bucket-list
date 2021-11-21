@@ -14,6 +14,11 @@ type options struct {
 	Profile string `short:"p" long:"profile" description:"aws profile" default:"default"`
 }
 
+var (
+	Version  = "unset"
+	Revision = "unset"
+)
+
 func main() {
 	var opts options
 	if _, err := flags.Parse(&opts); err != nil {
